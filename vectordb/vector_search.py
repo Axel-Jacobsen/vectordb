@@ -7,7 +7,6 @@ This module provides the VectorSearch class for performing vector search using v
 from typing import List, Tuple
 import numpy as np
 import faiss
-import sklearn
 
 
 MRPT_LOADED = True
@@ -49,7 +48,7 @@ class VectorSearch:
                     dd.append(dist)
                     if len(ii) >= k:
                         break
-       
+
         return np.array(ii), np.array(dd)
 
     @staticmethod
@@ -89,7 +88,6 @@ class VectorSearch:
         if (
             isinstance(vector, (list, np.ndarray)) and len(np.shape(vector)) > 1
         ):  # If vector is a list of vectors
-
             dis, indices = index.search(np.array(vector), k)
 
             if batch_results == "diverse":
@@ -114,7 +112,7 @@ class VectorSearch:
         :param top_n: the number of most similar vectors to return.
         :param batch_results: when input is a list of vectors, output algo can be "flatten" or "diverse"
         :return: a list of indices of the top_n most similar vectors in the embeddings.
-        
+
         """
         if isinstance(query_embedding, list):
             query_embedding = np.array(query_embedding).astype(np.float32)
